@@ -91,106 +91,22 @@
     </div>
 
     <script>
-        const rezepte = {
-            waffeln: {
-                title: "Waffeln 🧇",
-                image: "bilder/waffeln.jpeg",
-                zutaten: [
-                    "125g Butter",
-                    "100g Zucker",
-                    "3 Eier",
-                    "1 Päckchen Vanillezucker",
-                    "100g Butter",
-                    "250g Mehl",
-                    "1 TL Backpulver",
-                    "1 Pise Salz",
-                    "200ml Milch"
-
-                ],
-                zubereitung: "Die Butter in der Mikrowelle schmelzen, alle Zutaten verrühren, im Waffeleisen goldbraun backen."
-            },
-            bananenbrot: {
-                title: "Bananenbrot 🍌",
-                image: "bilder/Bananenbrot.jpg",
-                zutaten: [
-                    "3 reife Bananen",
-                    "2 Eier",
-                    "100g Zucker",
-                    "1 TL Backpulver",
-                    "200g Mehl",
-                    "50g Butter"
-                ],
-                zubereitung: "Bananen zerdrücken, alles verrühren, in eine Kastenform geben und ca. 50 Min. bei 180°C backen."
-            },
-            brownies: {
-                title: "Brownies 🍫",
-                image: "bilder/brownies.jpg",
-                zutaten: [
-                    "200g Zartbitterschokolade",
-                    "150g Butter",
-                    "3 Eier",
-                    "150g Zucker",
-                    "100g Mehl"
-                ],
-                zubereitung: "Schokolade und Butter schmelzen, restliche Zutaten einrühren, 25 Min. bei 180°C backen."
-            },
-            bananeschokomuffin: {
-                title: "Banane-Schoko Muffins 🍌🍫",
-                image: "bilder/banane-schokomuffin.png",
-                zutaten: [
-                    "200g Mehl",
-                    "2 Teel. Backpulver",
-                    "1/2 Teel. Natron",
-                    "1/4 Teel. Zimt",
-                    "3 Essl. Backkakao",
-                    "1 Ei",
-                    "175g brauner Zucker",
-                    "100ml neutrales Öl",
-                    "125g Buttermilch",
-                    "3 mittelgroße, reife Bananen"
-                ],
-                zubereitung: "Den Backofen auf 180° vorheizen. Das Mehl in eine Schüssel sieben und mit Backpulver, Natron, Zimt und Backkakao sorgfältig vermischen. In einer weiteren, großen Schüssel das Ei aufschlagen und leicht verquirlen. Dann den Zucken, das öl und die Buttermilch hinzufügen und gut vermischen. Die Banane schälen, mit einer Gabel zerdrücken, zur Maße geben und kurz unterrühren. Zuletzt die Mehlmmischung hinzufügen und vorsichtig unterheben. Den Teig in die Muffinform verteilen und im Backofen (Mitte, Umluft 160°) 20-25 Minuten backen."
-            },
-            heidelbeermuffins: {
-                title: "Heidelbeermuffins 🫐",
-                image: "bilder/heidelbeermuffin.jpeg",
-                zutaten: [
-                    "75g weiche Butter",
-                    "100g Zucker",
-                    "1 Pck. Vanillezucker",
-                    "2 Eier",
-                    "150g Naturjoghurt",
-                    "250g Weizenmehl",
-                    "2 TL. Backpulver",
-                    "1 Prise Salz",
-                    "250g Blaubeeren"
-                ],
-                zubereitung: "Eine Silikon-Muffinform (12 Mulden) mit Muffinförmchen auslegen. Backofen auf 180 Grad Ober-/Unterhitze (Umluft: 160 Grad) vorheizen. Für den Teig die Butter mit dem Zucker und Vanillezucker cremig rühren, nach und nach die Eier unterrühren. Den Joghurt zugeben und ebenfalls unterrühren. Das Mehl mit Backpulver und Salz vermischen und zum Teig geben. Alles gut verrühren. Mit einem Eisportionierer oder zwei Teelöffeln den Teig gleichmäßig auf die Muffinförmchen verteilen. Die Blaubeeren ebenfalls verteilen und etwas in den Teig eindrücken. Die Muffins im vorgeheizten Ofen ca. 25 Minuten backen."
-            },
-            grießbrei: {
-                title: "Weichweizengrießbrei 🌾",
-                image: "bilder/weichweizengrieß.jpeg",
-                zutaten: [
-                    "500ml Milch",
-                    "EL Zucker",
-                    "1 Pck. Vanillezucker",
-                    "Stück Butter",
-                    "50g Weichweizengrieß",
-                    "1 Pise Salz"
-                 
-
-                ],
-                zubereitung: "Milch mit Zucker, Vanillezucker und Salz aufkochen. Dabei immer wieder umrühren. Ist die Milch einmal aufgekocht, Topf vom Herd nehmen und den Grieß einrühren. Mischung unter Rühren nochmal aufkochen lassen, dann zugedeckt etwa 5 Min. ruhen lassen. Grießbrei in Schälchen füllen und mit frischem Obst (z.B. Himbeeren) servieren."
+        async function ladeRezepte() {
+            try {
+                const response = await fetch('rezepte.json');
+                if (!response.ok) throw new Error('Rezepte konnten nicht geladen werden');
+                const rezepte = await response.json();
+                return rezepte;
+            } catch (error) {
+                console.error(error);
+                return {};
             }
-        };
-
-        function getRezeptId() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get("id");
         }
 
-        function zeigeRezept() {
-            const id = getRezeptId();
+        async function zeigeRezept() {
+            const rezepte = await ladeRezepte();  // erst hier auf rezepte warten
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
             const rezept = rezepte[id];
 
             if (!rezept) {
@@ -213,8 +129,9 @@
             document.getElementById("zubereitung-text").innerText = rezept.zubereitung;
         }
 
-        zeigeRezept();
+        zeigeRezept(); // Aufruf der async Funktion
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
