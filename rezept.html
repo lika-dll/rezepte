@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Rezept</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="bilder/icon.png">
+    <link rel="icon" type="image/x-icon" href="bilder/icon.png" />
     <style>
         body {
             background-color: #fff8e1;
@@ -52,17 +52,75 @@
             margin: 0.2rem;
             font-size: 0.95rem;
             border-color: #ffe082a9;
+            text-decoration: none;
         }
 
         .btn:hover {
             background-color: #f7d160;
             color: #5d4037;
-            padding: 0.4rem 0.75rem;
-            border-radius: 1rem;
-            display: inline-block;
-            margin: 0.2rem;
-            font-size: 0.95rem;
             border-color: #ffe082a9;
+            text-decoration: none;
+        }
+
+        /* Stil für den Personen-Schieberegler */
+
+        #personen {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #ffe082 0%, #ffe082 var(--percent, 50%), #ddd var(--percent, 50%), #ddd 100%);
+            outline: none;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        /* Thumb Webkit */
+        #personen::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #f7d160;
+            border: 2px solid #5d4037;
+            cursor: pointer;
+            margin-top: -2.5px;
+            box-shadow: none;
+            transition: background 0.3s ease;
+        }
+
+        #personen::-webkit-slider-thumb:hover {
+            background: #f1c232;
+        }
+
+        /* Thumb Firefox */
+        #personen::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #f7d160;
+            border: 2px solid #5d4037;
+            cursor: pointer;
+            box-shadow: none;
+            transition: background 0.3s ease;
+        }
+
+        #personen::-moz-range-thumb:hover {
+            background: #f1c232;
+        }
+
+        /* Firefox Track */
+        #personen::-moz-range-track {
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+        }
+
+        /* Fokus-Ring entfernen */
+        #personen:focus {
+            outline: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -81,6 +139,9 @@
                     <h1 id="rezept-title"></h1>
 
                     <h4 class="mt-4">Zutaten:</h4>
+
+                    <input type="range" id="personen" min="1" max="10" value="1" step="1" aria-label="Personenanzahl" />
+
                     <div id="zutaten-liste" class="mb-4"></div>
 
                     <h4>Zubereitung:</h4>
@@ -103,12 +164,15 @@
             }
         }
 
-        async function zeigeRezept() {
-            const rezepte = await ladeRezepte();  // erst hier auf rezepte warten
+        function getRezeptId() {
             const params = new URLSearchParams(window.location.search);
-            const id = params.get("id");
-            const rezept = rezepte[id];
+            return params.get("id");
+        }
 
+        async function zeigeRezept() {
+            const rezepte = await ladeRezepte();
+            const id = getRezeptId();
+            const rezept = rezepte[id];
             if (!rezept) {
                 document.getElementById("rezept-title").innerText = "Rezept nicht gefunden.";
                 return;
@@ -117,21 +181,40 @@
             document.getElementById("rezept-title").innerText = rezept.title;
             document.getElementById("rezept-img").src = rezept.image;
 
+            const personenInput = document.getElementById("personen");
             const zutatenListe = document.getElementById("zutaten-liste");
-            zutatenListe.innerHTML = "";
-            rezept.zutaten.forEach(zutat => {
-                const span = document.createElement("span");
-                span.className = "badge-zutat";
-                span.textContent = zutat;
-                zutatenListe.appendChild(span);
-            });
+
+            function aktualisiereZutaten() {
+                const personen = parseInt(personenInput.value) || 1;
+                zutatenListe.innerHTML = "";
+
+                // Update Slider Track-Farbe
+                const val = (personenInput.value - personenInput.min) / (personenInput.max - personenInput.min) * 100;
+                personenInput.style.setProperty('--percent', `${val}%`);
+
+                rezept.zutaten.forEach(zutat => {
+                    let mengeNeu = zutat.menge * personen;
+                    // Wenn Menge eine ganze Zahl ist, keine Nachkommastellen anzeigen, sonst 2 Stellen
+                    mengeNeu = Number.isInteger(mengeNeu) ? mengeNeu : mengeNeu.toFixed(2);
+                    const text = `${mengeNeu} ${zutat.einheit} ${zutat.name}`;
+
+                    const span = document.createElement("span");
+                    span.className = "badge-zutat";
+                    span.textContent = text;
+                    zutatenListe.appendChild(span);
+                });
+            }
+
+            personenInput.addEventListener("input", aktualisiereZutaten);
+
+            // Initial anzeigen
+            aktualisiereZutaten();
 
             document.getElementById("zubereitung-text").innerText = rezept.zubereitung;
         }
 
-        zeigeRezept(); // Aufruf der async Funktion
+        zeigeRezept();
     </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
