@@ -11,14 +11,22 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        .badge-zutat {
+        .badge-zutat,
+        .btn-teilen {
             background-color: #ffe082;
             color: #5d4037;
             padding: 0.4rem 0.75rem;
             border-radius: 1rem;
             display: inline-block;
-            margin: 0.2rem;
+            margin: 0.2rem 0.4rem 0.2rem 0;
             font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-teilen:hover {
+            background-color: #f7d160;
         }
 
         #personen {
@@ -38,11 +46,9 @@
             height: 24px;
             border-radius: 50%;
             background: #ffe082;
-            /* weicheres Gelb */
             cursor: pointer;
-            box-shadow: 0 0 6px #ffe082;
-            /* sanfterer Schatten */
-            margin-top: -3px;
+            box-shadow: 0 0 6px rgba(93, 64, 55, 0.3);
+            margin-top: -7px;
             transition: background 0.3s ease;
         }
 
@@ -52,12 +58,10 @@
             border-radius: 50%;
             background: #ffe082;
             cursor: pointer;
-            box-shadow: 0 0 6px #ffe082;
+            box-shadow: 0 0 6px rgba(93, 64, 55, 0.3);
             transition: background 0.3s ease;
         }
 
-
-        /* Bild-Stil */
         #rezept-bild {
             width: 100%;
             max-height: 400px;
@@ -66,6 +70,12 @@
             margin-bottom: 1rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        #qrcode-container {
+            display: none;
+            margin-top: 1rem;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -73,7 +83,6 @@
     <div style="max-width: 600px; margin: 2rem auto; padding: 1rem; background: white; border-radius: 8px;">
         <h1 id="rezept-title">Rezept wird geladen...</h1>
 
-        <!-- Bild des Rezepts -->
         <img id="rezept-bild" src="" alt="Rezeptbild" style="display:none;" />
 
         <label for="personen">Portionen: <span id="personen-anzahl">1</span></label>
@@ -84,6 +93,20 @@
 
         <h3>Zubereitung:</h3>
         <p id="zubereitung-text"></p>
+
+        <!-- Teilen -->
+        <div class="mt-4">
+            <h4>Rezept teilen:</h4>
+            <button class="btn-teilen" onclick="teilePerWhatsApp()">📱 WhatsApp</button>
+            <button class="btn-teilen" onclick="teilePerEmail()">✉️ E-Mail</button>
+            <button class="btn-teilen" onclick="copyLink()">🔗 Link kopieren</button>
+            <button class="btn-teilen" onclick="zeigeQRCode()">📷 QR-Code anzeigen</button>
+        </div>
+
+        <div id="qrcode-container">
+            <img id="qrcode" alt="QR-Code" width="150" />
+        </div>
+
     </div>
 
     <script>
@@ -117,35 +140,27 @@
 
             if (!rezept) {
                 titelEl.textContent = "Rezept nicht gefunden.";
-                zutatenListe.innerHTML = '';
-                zubereitungText.textContent = '';
-                personenInput.style.display = 'none';
-                bildEl.style.display = 'none';
                 return;
             }
 
             titelEl.textContent = rezept.title;
             zubereitungText.textContent = rezept.zubereitung;
 
-            // Bild anzeigen, falls vorhanden
             if (rezept.image) {
                 bildEl.src = rezept.image;
                 bildEl.style.display = 'block';
-            } else {
-                bildEl.style.display = 'none';
             }
 
             function aktualisiereZutaten() {
                 const personen = parseInt(personenInput.value, 10) || 1;
                 personenAnzeige.textContent = personen;
-
                 zutatenListe.innerHTML = '';
 
                 rezept.zutaten.forEach(zutat => {
                     const mengeNum = Number(zutat.menge);
                     const mengeNeu = (mengeNum * personen).toFixed(2).replace(/\.00$/, '');
-
                     const text = `${mengeNeu} ${zutat.einheit} ${zutat.name}`;
+
                     const span = document.createElement('span');
                     span.className = 'badge-zutat';
                     span.textContent = text;
@@ -158,8 +173,32 @@
             }
 
             personenInput.addEventListener('input', aktualisiereZutaten);
-
             aktualisiereZutaten();
+        }
+
+        function teilePerWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = `Schau dir dieses Rezept an! ${url}`;
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        function teilePerEmail() {
+            const subject = encodeURIComponent("Leckeres Rezept für dich");
+            const body = encodeURIComponent("Hier ist ein tolles Rezept:\n" + window.location.href);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert("Link wurde in die Zwischenablage kopiert!");
+            });
+        }
+
+        function zeigeQRCode() {
+            const qrImage = document.getElementById("qrcode");
+            qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(window.location.href);
+            document.getElementById("qrcode-container").style.display = "block";
         }
 
         init();
