@@ -152,15 +152,17 @@
     </div>
 
     <script>
+        let rezepte = {};
+
         async function ladeRezepte() {
             try {
                 const response = await fetch('rezepte.json');
                 if (!response.ok) throw new Error('Rezepte konnten nicht geladen werden');
-                const rezepte = await response.json();
-                return rezepte;
+                rezepte = await response.json();
+                zeigeRezept(); // erst hier Rezept zeigen, wenn geladen
             } catch (error) {
                 console.error(error);
-                return {};
+                document.getElementById("rezept-title").innerText = "Rezepte konnten nicht geladen werden.";
             }
         }
 
@@ -169,52 +171,35 @@
             return params.get("id");
         }
 
-        async function zeigeRezept() {
-            const rezepte = await ladeRezepte();
+        function zeigeRezept() {
             const id = getRezeptId();
-            const rezept = rezepte[id];
-            if (!rezept) {
+            console.log("Rezept ID:", id);
+            console.log("Rezepte geladen:", rezepte);
+
+            if (!id || !rezepte[id]) {
                 document.getElementById("rezept-title").innerText = "Rezept nicht gefunden.";
                 return;
             }
 
+            const rezept = rezepte[id];
             document.getElementById("rezept-title").innerText = rezept.title;
             document.getElementById("rezept-img").src = rezept.image;
 
-            const personenInput = document.getElementById("personen");
             const zutatenListe = document.getElementById("zutaten-liste");
-
-            function aktualisiereZutaten() {
-                const personen = parseInt(personenInput.value) || 1;
-                zutatenListe.innerHTML = "";
-
-                // Update Slider Track-Farbe
-                const val = (personenInput.value - personenInput.min) / (personenInput.max - personenInput.min) * 100;
-                personenInput.style.setProperty('--percent', `${val}%`);
-
-                rezept.zutaten.forEach(zutat => {
-                    let mengeNeu = zutat.menge * personen;
-                    // Wenn Menge eine ganze Zahl ist, keine Nachkommastellen anzeigen, sonst 2 Stellen
-                    mengeNeu = Number.isInteger(mengeNeu) ? mengeNeu : mengeNeu.toFixed(2);
-                    const text = `${mengeNeu} ${zutat.einheit} ${zutat.name}`;
-
-                    const span = document.createElement("span");
-                    span.className = "badge-zutat";
-                    span.textContent = text;
-                    zutatenListe.appendChild(span);
-                });
-            }
-
-            personenInput.addEventListener("input", aktualisiereZutaten);
-
-            // Initial anzeigen
-            aktualisiereZutaten();
+            zutatenListe.innerHTML = "";
+            rezept.zutaten.forEach(zutat => {
+                const span = document.createElement("span");
+                span.className = "badge-zutat";
+                span.textContent = zutat;
+                zutatenListe.appendChild(span);
+            });
 
             document.getElementById("zubereitung-text").innerText = rezept.zubereitung;
         }
 
-        zeigeRezept();
+        ladeRezepte();
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
