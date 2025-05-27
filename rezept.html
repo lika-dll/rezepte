@@ -215,10 +215,31 @@
             aktualisiereZutaten();
         }
 
-        function teilePerWhatsApp() { /* ... unverändert ... */ }
-        function teilePerEmail() { /* ... unverändert ... */ }
-        function copyLink() { /* ... unverändert ... */ }
-        function zeigeQRCode() { /* ... unverändert ... */ }
+        function teilePerWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = `Schau dir dieses Rezept an! ${url}`;
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        function teilePerEmail() {
+            const subject = encodeURIComponent("Leckeres Rezept für dich");
+            const body = encodeURIComponent("Hier ist ein tolles Rezept:\n" + window.location.href);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert("Link wurde in die Zwischenablage kopiert!");
+            });
+        }
+
+        function zeigeQRCode() {
+            const qrImage = document.getElementById("qrcode");
+            qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(window.location.href);
+            document.getElementById("qrcode-container").style.display = "block";
+        }
+
 
         init();
     </script>
