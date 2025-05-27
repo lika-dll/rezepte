@@ -52,75 +52,47 @@
             margin: 0.2rem;
             font-size: 0.95rem;
             border-color: #ffe082a9;
-            text-decoration: none;
         }
 
         .btn:hover {
             background-color: #f7d160;
             color: #5d4037;
             border-color: #ffe082a9;
-            text-decoration: none;
         }
 
-        /* Stil für den Personen-Schieberegler */
-
+        /* Schieberegler-Stil */
         #personen {
             -webkit-appearance: none;
             width: 100%;
-            height: 8px;
+            height: 10px;
             border-radius: 5px;
-            background: linear-gradient(to right, #ffe082 0%, #ffe082 var(--percent, 50%), #ddd var(--percent, 50%), #ddd 100%);
+            background: linear-gradient(to right, #ffe082 0%, #ffe082 50%, #ccc 50%, #ccc 100%);
             outline: none;
-            margin-bottom: 1rem;
-            cursor: pointer;
+            margin: 1rem 0 2rem 0;
         }
 
-        /* Thumb Webkit */
         #personen::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: #f7d160;
-            border: 2px solid #5d4037;
+            background: #ffeb3b;
             cursor: pointer;
-            margin-top: -2.5px;
-            box-shadow: none;
+            box-shadow: 0 0 8px #ffd54f;
+            margin-top: -7px;
+            /* Punkt vertikal etwas anpassen */
             transition: background 0.3s ease;
         }
 
-        #personen::-webkit-slider-thumb:hover {
-            background: #f1c232;
-        }
-
-        /* Thumb Firefox */
         #personen::-moz-range-thumb {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: #f7d160;
-            border: 2px solid #5d4037;
+            background: #ffeb3b;
             cursor: pointer;
-            box-shadow: none;
+            box-shadow: 0 0 8px #ffd54f;
             transition: background 0.3s ease;
-        }
-
-        #personen::-moz-range-thumb:hover {
-            background: #f1c232;
-        }
-
-        /* Firefox Track */
-        #personen::-moz-range-track {
-            height: 8px;
-            border-radius: 5px;
-            background: #ddd;
-        }
-
-        /* Fokus-Ring entfernen */
-        #personen:focus {
-            outline: none;
-            box-shadow: none;
         }
     </style>
 </head>
@@ -138,10 +110,11 @@
                 <div class="col-md-6">
                     <h1 id="rezept-title"></h1>
 
-                    <h4 class="mt-4">Zutaten:</h4>
+                    <label for="personen" class="form-label mt-4">Personenanzahl: <span
+                            id="personen-anzahl">1</span></label>
+                    <input type="range" min="1" max="10" value="1" id="personen" />
 
-                    <input type="range" id="personen" min="1" max="10" value="1" step="1" aria-label="Personenanzahl" />
-
+                    <h4>Zutaten:</h4>
                     <div id="zutaten-liste" class="mb-4"></div>
 
                     <h4>Zubereitung:</h4>
@@ -159,7 +132,7 @@
                 const response = await fetch('rezepte.json');
                 if (!response.ok) throw new Error('Rezepte konnten nicht geladen werden');
                 rezepte = await response.json();
-                zeigeRezept(); // erst hier Rezept zeigen, wenn geladen
+                zeigeRezept();
             } catch (error) {
                 console.error(error);
                 document.getElementById("rezept-title").innerText = "Rezepte konnten nicht geladen werden.";
@@ -173,8 +146,6 @@
 
         function zeigeRezept() {
             const id = getRezeptId();
-            console.log("Rezept ID:", id);
-            console.log("Rezepte geladen:", rezepte);
 
             if (!id || !rezepte[id]) {
                 document.getElementById("rezept-title").innerText = "Rezept nicht gefunden.";
@@ -185,21 +156,49 @@
             document.getElementById("rezept-title").innerText = rezept.title;
             document.getElementById("rezept-img").src = rezept.image;
 
+            const personenInput = document.getElementById("personen");
+            const personenAnzeige = document.getElementById("personen-anzahl");
             const zutatenListe = document.getElementById("zutaten-liste");
-            zutatenListe.innerHTML = "";
-            rezept.zutaten.forEach(zutat => {
-                const span = document.createElement("span");
-                span.className = "badge-zutat";
-                span.textContent = zutat;
-                zutatenListe.appendChild(span);
-            });
+
+            function aktualisiereZutaten() {
+                const personen = parseInt(personenInput.value) || 1;
+                personenAnzeige.textContent = personen;
+                zutatenListe.innerHTML = "";
+
+                rezept.zutaten.forEach(zutat => {
+                    // Wenn zutat ein Objekt mit menge, einheit, name ist
+                    if (typeof zutat === 'object') {
+                        const mengeNeu = (zutat.menge * personen).toFixed(2).replace(/\.00$/, '');
+                        const text = `${mengeNeu} ${zutat.einheit} ${zutat.name}`;
+                        const span = document.createElement("span");
+                        span.className = "badge-zutat";
+                        span.textContent = text;
+                        zutatenListe.appendChild(span);
+                    } else {
+                        // Falls zutat einfach String ist (Fallback)
+                        const span = document.createElement("span");
+                        span.className = "badge-zutat";
+                        span.textContent = zutat;
+                        zutatenListe.appendChild(span);
+                    }
+                });
+
+                // Schieberegler-Hintergrund dynamisch anpassen:
+                const max = parseInt(personenInput.max) || 10;
+                const percent = ((personen - 1) / (max - 1)) * 100;
+                personenInput.style.background = `linear-gradient(to right, #ffe082 0%, #ffe082 ${percent}%, #ccc ${percent}%, #ccc 100%)`;
+            }
+
+            personenInput.addEventListener("input", aktualisiereZutaten);
+
+            // Initial anzeigen
+            aktualisiereZutaten();
 
             document.getElementById("zubereitung-text").innerText = rezept.zubereitung;
         }
 
         ladeRezepte();
     </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
