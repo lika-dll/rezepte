@@ -260,5 +260,50 @@
             }
         ],
         "zubereitung": "Milch mit Zucker, Vanillezucker und Salz aufkochen. Dabei immer wieder umrühren. Ist die Milch einmal aufgekocht, Topf vom Herd nehmen und den Grieß einrühren. Mischung unter Rühren nochmal aufkochen lassen, dann zugedeckt etwa 5 Min. ruhen lassen. Grießbrei in Schälchen füllen und mit frischem Obst (z.B. Himbeeren) servieren."
+    },"kaiserschmarrn": {
+        "title": "Kaiserschmarrn 🌄",
+        "image": "bilder/Kaiserschmarrn.jpeg",
+        "zutaten": [
+            {
+                "menge": 125,
+                "einheit": "ml",
+                "name": "Milch"
+            },
+            {
+                "menge": 40,
+                "einheit": "g",
+                "name": "Zucker"
+            },
+            {
+                "menge": 1,
+                "einheit": "TL",
+                "name": "Backpulver"
+            },
+            {
+                "menge": 4,
+                "einheit": "Stück",
+                "name": "Eier"
+            },
+            {
+                "menge": 125,
+                "einheit": "g",
+                "name": "Mehl"
+            },
+            {
+                "menge": 1,
+                "einheit": "Prise",
+                "name": "Salz"
+            },
+{
+                "menge": 4,
+                "einheit": "EL",
+                "name": "Butter"
+            },{
+                "menge": 1,
+                "einheit": "EL",
+                "name": "Puderzucker"
+            }
+        ],
+        "zubereitung": "Ei aufschlagen, trennen. Eigelb mit Mehl, Milch, Salz, Backpulver und Zucker verrühren, 10 Minuten ruhen lassen. Eischnee schlagen, unterheben, in Butter goldbraun backen, wenden, zerreißen und mit Puderzucker bestreuen."
     }
 }
