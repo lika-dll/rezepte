@@ -147,9 +147,12 @@
     <div class="container mt-4">
         <h1 class="custom-heading">Unsere Rezepte</h1>
 
+        <div class="mb-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Rezept suchen...">
+        </div>
 
         <div class="row my-4 g-4">
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="waffeln">
                 <div class="card h-100">
                     <img src="bilder/waffeln.jpeg" class="card-img-top" alt="Rezept 1" />
                     <div class="card-body">
@@ -161,7 +164,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="banane-schokomuffin">
                 <div class="card h-100">
                     <img src="bilder/banane-schokomuffin.png" class="card-img-top" alt="Rezept 2" />
                     <div class="card-body">
@@ -173,7 +176,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="bananenbrot">
                 <div class="card h-100">
                     <img src="bilder/Bananenbrot.jpg" class="card-img-top" alt="Rezept 3" />
                     <div class="card-body">
@@ -187,7 +190,7 @@
         </div>
 
         <div class="row my-4 g-4">
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="heidelbeermuffins">
                 <div class="card h-100">
                     <img src="bilder/heidelbeermuffin.jpeg" class="card-img-top" alt="Rezept 1" />
                     <div class="card-body">
@@ -199,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="brownies">
                 <div class="card h-100">
                     <img src="bilder/brownies.jpg" class="card-img-top" alt="Rezept 2" />
                     <div class="card-body">
@@ -211,7 +214,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="weichweizengrieß">
                 <div class="card h-100">
                     <img src="bilder/weichweizengrieß.jpeg" class="card-img-top" alt="Rezept 3" />
                     <div class="card-body">
@@ -223,7 +226,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="kaiserschmarrn">
                 <div class="card h-100">
                     <img src="bilder/kaiserschmarrn.png" class="card-img-top" alt="" />
                     <div class="card-body">
@@ -235,7 +238,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 d-flex">
+            <div class="col-md-4 d-flex  recipe-card" data-title="zimtschnecken">
                 <div class="card h-100">
                     <img src="bilder/zimtschnecken.png" class="card-img-top" alt="" />
                     <div class="card-body">
@@ -246,7 +249,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-4 d-flex">
+            <!-- <div class="col-md-4 d-flex  recipe-card">
                 <div class="card h-100">
                     <img src="bilder/[bild]" class="card-img-top" alt="" />
                     <div class="card-body">
@@ -263,5 +266,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
+<script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const cards = document.querySelectorAll('.recipe-card');
+
+        cards.forEach(card => {
+            const title = card.getAttribute('data-title').toLowerCase();
+            card.style.display = title.includes(query) ? 'block' : 'none';
+        });
+    });
+</script>
 
 </html>
