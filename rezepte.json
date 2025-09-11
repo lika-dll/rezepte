@@ -260,7 +260,8 @@
             }
         ],
         "zubereitung": "Milch mit Zucker, Vanillezucker und Salz aufkochen. Dabei immer wieder umrühren. Ist die Milch einmal aufgekocht, Topf vom Herd nehmen und den Grieß einrühren. Mischung unter Rühren nochmal aufkochen lassen, dann zugedeckt etwa 5 Min. ruhen lassen. Grießbrei in Schälchen füllen und mit frischem Obst (z.B. Himbeeren) servieren."
-    },"kaiserschmarrn": {
+    },
+    "kaiserschmarrn": {
         "title": "Kaiserschmarrn 🌄",
         "image": "bilder/kaiserschmarrn.png",
         "zutaten": [
@@ -294,18 +295,20 @@
                 "einheit": "Prise",
                 "name": "Salz"
             },
-{
+            {
                 "menge": 4,
                 "einheit": "EL",
                 "name": "Butter"
-            },{
+            },
+            {
                 "menge": 1,
                 "einheit": "EL",
                 "name": "Puderzucker"
             }
         ],
         "zubereitung": "Ei aufschlagen, trennen. Eigelb mit Mehl, Milch, Salz, Backpulver und Zucker verrühren, 10 Minuten ruhen lassen. Eischnee schlagen, unterheben, in Butter goldbraun backen, wenden, zerreißen und mit Puderzucker bestreuen."
-    },"zimtschnecken": {
+    },
+    "zimtschnecken": {
         "title": "Zimtschnecken 🌄",
         "image": "bilder/zimtschnecken.png",
         "zutaten": [
@@ -320,11 +323,10 @@
                 "name": "Zucker"
             },
             {
-                "menge": 1/2,
+                "menge": 0.5,
                 "einheit": "Würfel",
                 "name": "Hefe"
             },
-          
             {
                 "menge": 500,
                 "einheit": "g",
@@ -335,7 +337,7 @@
                 "einheit": "Prise",
                 "name": "Salz"
             },
-{
+            {
                 "menge": 170,
                 "einheit": "g",
                 "name": "Butter"
@@ -345,7 +347,7 @@
                 "einheit": "Pck.",
                 "name": "Vanillinzucker"
             },
-             {
+            {
                 "menge": 70,
                 "einheit": "g",
                 "name": "Frischkäse"
