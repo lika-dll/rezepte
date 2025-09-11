@@ -305,5 +305,57 @@
             }
         ],
         "zubereitung": "Ei aufschlagen, trennen. Eigelb mit Mehl, Milch, Salz, Backpulver und Zucker verrühren, 10 Minuten ruhen lassen. Eischnee schlagen, unterheben, in Butter goldbraun backen, wenden, zerreißen und mit Puderzucker bestreuen."
+    },"kaiserschmarrn": {
+        "title": "Zimtschnecken 🌄",
+        "image": "bilder/zimtschnecken.png",
+        "zutaten": [
+            {
+                "menge": 270,
+                "einheit": "ml",
+                "name": "Milch"
+            },
+            {
+                "menge": 120,
+                "einheit": "g",
+                "name": "Zucker"
+            },
+            {
+                "menge": 1/2,
+                "einheit": "Würfel",
+                "name": "Hefe"
+            },
+          
+            {
+                "menge": 500,
+                "einheit": "g",
+                "name": "Mehl"
+            },
+            {
+                "menge": 1,
+                "einheit": "Prise",
+                "name": "Salz"
+            },
+{
+                "menge": 170,
+                "einheit": "g",
+                "name": "Butter"
+            },
+            {
+                "menge": 1,
+                "einheit": "Pck.",
+                "name": "Vanillinzucker"
+            },
+             {
+                "menge": 70,
+                "einheit": "g",
+                "name": "Frischkäse"
+            },
+            {
+                "menge": 1,
+                "einheit": "EL",
+                "name": "Puderzucker"
+            }
+        ],
+        "zubereitung": "Ei aufschlagen, trennen. Eigelb mit Mehl, Milch, Salz, Backpulver und Zucker verrühren, 10 Minuten ruhen lassen. Eischnee schlagen, unterheben, in Butter goldbraun backen, wenden, zerreißen und mit Puderzucker bestreuen."
     }
 }
