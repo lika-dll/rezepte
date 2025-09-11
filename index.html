@@ -272,15 +272,15 @@
             const cards = document.querySelectorAll('.recipe-card');
 
             cards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                if (title.includes(query)) {
-                    card.style.display = ""; // ursprüngliche Anzeige wiederherstellen
-                } else {
-                    card.style.display = "none"; // ausblenden
-                }
+                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || "";
+                const description = card.querySelector('.card-text')?.textContent.toLowerCase() || "";
+                const combinedText = title + " " + description;
+
+                card.style.display = combinedText.includes(query) ? "" : "none";
             });
         });
     </script>
+
 
 </body>
 
