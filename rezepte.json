@@ -359,5 +359,71 @@
             }
         ],
         "zubereitung": "Milch und Butter erwärmen. Mehl, Zucker, Vanillinzucker, Salz und Hefe mischen. Lauwarme Milch zugeben und 5 Min. kneten. 45 Min. ruhen lassen. Form fetten. Teig ausrollen (ca. 40×30 cm). Füllung aus Butter, Zucker und Zimt aufstreichen. Aufrollen. In 10 Stücke schneiden, in die Form legen. 30 Min. ruhen lassen. Bei 180 °C (Umluft 160 °C) ca. 25 Min. backen. Frischkäse, Butter und Puderzucker verrühren. Auf lauwarme Schnecken streichen und servieren."
+    },
+    "himbeerwolke": {
+        "title": "Himbeerwolke ☁️",
+        "image": "bilder/himbeerwolke.png",
+        "zutaten": [
+            {
+                "menge": 3,
+                "einheit": "Stk.",
+                "name": "Eier"
+            },
+            {
+                "menge": 200,
+                "einheit": "g",
+                "name": "Zucker"
+            },
+            {
+                "menge": 200,
+                "einheit": "g",
+                "name": "Creme Fraich"
+            },
+            {
+                "menge": 200,
+                "einheit": "g",
+                "name": "Mehl"
+            },
+            {
+                "menge": 2,
+                "einheit": "TL",
+                "name": "Natron"
+            },
+            {
+                "menge": 400,
+                "einheit": "ml",
+                "name": "Sahne (Rahma Cremefine)"
+            },
+            {
+                "menge": 300,
+                "einheit": "g",
+                "name": "Zucker"
+            },
+            {
+                "menge": 4,
+                "einheit": "Pck.",
+                "name": "Sahnesteif"
+            },
+            {
+                "menge": 350,
+                "einheit": "g",
+                "name": "Philadelphia Balance"
+            },
+            
+            {
+                "menge": 750,
+                "einheit": "g",
+                "name": "TK Himbeeren "
+            }
+            ,
+            {
+                "menge": 500,
+                "einheit": "ml",
+                "name": "Tortenguss"
+            }
+        ],
+        "zubereitung": "Für den Teig: Zuerst die Eier und den Zucker aufschlagen, anschließend Mehl, Creme Fraich und Natron hinzufügen und gut vermengen. Den Teig auf einem Backblech verteilen und bei 200 Grad ca. 12-15min backen.
+        Für die Creme: Die Schlagsahne schlagen bis sie fest ist und Sahnesteif dazu geben. Anschließend den Zucker und Philadelphia dazu geben und vermengen. 
+Den Kuchen abkühlen lassen und mit der Creme bestreichen. Die gefrorenen Himbeeren auf der Creme verteilen und anschließend den Tortenguss(nach Packung zubereichtet) gleichmäßig auf den Kuchen gießen."
     }
 }
