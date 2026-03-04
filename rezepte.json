@@ -423,5 +423,32 @@
             }
         ],
         "zubereitung": "Für den Teig: Zuerst die Eier und den Zucker aufschlagen, anschließend Mehl, Creme Fraich und Natron hinzufügen und gut vermengen. Den Teig auf einem Backblech verteilen und bei 200 Grad ca. 12-15min backen. Für die Creme: Die Schlagsahne schlagen bis sie fest ist und Sahnesteif dazu geben. Anschließend den Zucker und Philadelphia dazu geben und vermengen. Den Kuchen abkühlen lassen und mit der Creme bestreichen. Die gefrorenen Himbeeren auf der Creme verteilen und anschließend den Tortenguss(nach Packung zubereichtet) gleichmäßig auf den Kuchen gießen."
+    },
+    "sauerteigbrot": {
+        "title": "Sauerteigbrot 🥖",
+        "image": "bilder/sauerteigbrot.png",
+        "zutaten": [
+            {
+                "menge": 110,
+                "einheit": "g",
+                "name": "Sauerteigstarter"
+            },
+            {
+                "menge": 300,
+                "einheit": "g",
+                "name": "Wasser"
+            },
+            {
+                "menge": 500,
+                "einheit": "g",
+                "name": "Mehl"
+            },
+            {
+                "menge": 12,
+                "einheit": "g",
+                "name": "Salz"
+            }
+        ],
+        "zubereitung": "!Für den Teig wird aktiver Sauerteigstarter benötigt! Zu Beginn alle Zutaten gut vermengen, sodass ein klebriger Teig entsteht. Den Teig dann erstmal ca. 1h stehen lassen und dann in 45min-Abständen die Seiten stretchen und zur Mitte falten. Die Faltvorgänge können je nach Teigverhalten variiert werden. (2-4) Zum Schluss hebe den Teig wie eine Brücke hoch und klappe die Enden unter den Teig. (2x Coil Fold) Danach den Teig ein wenig ruhen lassen und danach auf Spannung bringen. Im Gärkorb für 4-8 Stunden im Kühlschrank aufbewaren und dann auf einem Backblech in den auf 275°C vorgeheizten Backofen schieben. Auf ein Backblech unten im Ofen kochendes Wasser kippen und den Ofen schließen, um Feuchtigkeit im Ofen zu halten. Nach 7min Spannungsschnitt setzen und Wasser nachkippen. Nach 20 min im Ofen kann der Ofen kurz geöffnet werden, damit der Wasserdampf entweicht und dann das Brot bei 220°C weitere 25min backen. Das Brot ist fertig, wenn man auf die Unterseite klopft und es hohl klingt. Vor dem Schneiden 1-2h abkühlen lassen - das Brot backt weiter!"
     }
 }
