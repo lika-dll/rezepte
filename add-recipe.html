@@ -69,40 +69,74 @@
 </div>
 
 <script type="module">
-
 import { db } from './firebase.js';
-
 import {
   collection,
   addDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const saveBtn = document.getElementById("saveBtn");
+document.addEventListener("DOMContentLoaded", () => {
 
-saveBtn.addEventListener("click", async () => {
+  const saveBtn = document.getElementById("saveBtn");
+  const addIngredientBtn = document.getElementById("addIngredient");
+  const ingredientsContainer = document.getElementById("ingredients-container");
 
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const preparation = document.getElementById("preparation").value;
-  const image = document.getElementById("image").value;
+  function addIngredientField() {
 
-  try {
+    const div = document.createElement("div");
 
-    await addDoc(collection(db, "rezepte"), {
-      title,
-      description,
-      preparation,
-      image
-    });
+    div.style.marginBottom = "1rem";
 
-    alert("Rezept gespeichert 🎉");
+    div.innerHTML = `
+      <input type="number" placeholder="Menge" class="menge">
+      <input type="text" placeholder="Einheit" class="einheit">
+      <input type="text" placeholder="Zutat" class="name">
+    `;
 
-  } catch (error) {
-
-    console.error(error);
-    alert("Fehler beim Speichern");
-
+    ingredientsContainer.appendChild(div);
   }
+
+  addIngredientBtn.addEventListener("click", addIngredientField);
+
+  addIngredientField(); // erstes Feld automatisch
+
+  saveBtn.addEventListener("click", async () => {
+
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const preparation = document.getElementById("preparation").value;
+    const image = document.getElementById("image").value;
+
+    const zutaten = [];
+
+    const ingredientDivs = ingredientsContainer.children;
+
+    for (const div of ingredientDivs) {
+
+      const menge = div.querySelector(".menge").value;
+      const einheit = div.querySelector(".einheit").value;
+      const name = div.querySelector(".name").value;
+
+      zutaten.push({ menge, einheit, name });
+    }
+
+    try {
+      await addDoc(collection(db, "rezepte"), {
+        title,
+        description,
+        zubereitung: preparation,
+        image,
+        zutaten
+      });
+
+      alert("Rezept gespeichert 🎉");
+
+    } catch (e) {
+      console.error(e);
+      alert("Fehler beim Speichern");
+    }
+
+  });
 
 });
 
