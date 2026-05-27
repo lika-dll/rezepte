@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rezept hinzufügen</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8e1;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #ffe082;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #ffd54f;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Neues Rezept hinzufügen 🍰</h1>
+
+  <input type="text" id="title" placeholder="Rezeptname">
+
+  <textarea id="description" placeholder="Beschreibung"></textarea>
+
+  <textarea id="preparation" placeholder="Zubereitung"></textarea>
+
+  <input type="text" id="image" placeholder="Bild-URL">
+
+  <button id="saveBtn">Rezept speichern</button>
+
+</div>
+
+<script type="module">
+
+import { db } from './firebase.js';
+
+import {
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const saveBtn = document.getElementById("saveBtn");
+
+saveBtn.addEventListener("click", async () => {
+
+  const title = document.getElementById("title").value;
+  const description = document.getElementById("description").value;
+  const preparation = document.getElementById("preparation").value;
+  const image = document.getElementById("image").value;
+
+  try {
+
+    await addDoc(collection(db, "rezepte"), {
+      title,
+      description,
+      preparation,
+      image
+    });
+
+    alert("Rezept gespeichert 🎉");
+
+  } catch (error) {
+
+    console.error(error);
+    alert("Fehler beim Speichern");
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
