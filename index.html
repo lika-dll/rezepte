@@ -296,7 +296,7 @@
         import { db } from './firebase.js';
 
         console.log("Firebase verbunden", db);
-        async function ladeRezepte() {
+     async function ladeRezepte() {
 
     const container = document.getElementById("recipe-container");
 
@@ -305,6 +305,7 @@
     querySnapshot.forEach((doc) => {
 
         const rezept = doc.data();
+        const id = doc.id;
 
         const card = `
         <div class="col-md-4 d-flex recipe-card">
@@ -322,7 +323,7 @@
                         ${rezept.description}
                     </p>
 
-                    <a href="#" class="btn btn-secondary">
+                    <a href="rezept.html?id=${id}" class="btn btn-secondary">
                         Rezept ansehen
                     </a>
 
