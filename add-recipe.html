@@ -168,26 +168,14 @@ No text, no watermark, no hands, no people.
 
 });
 async function generiereBild(prompt) {
-
-   const res = await fetch("https://api.replicate.com/v1/predictions", {
+  const res = await fetch("/api/generate-image", {
     method: "POST",
-    headers: {
-      "Authorization": "Token DEIN_API_KEY",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      version: "MODEL_ID_HIER",
-      input: {
-        prompt: prompt
-      }
-    })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
   });
 
   const data = await res.json();
-
-  return data.output[0];
-
-  return response.url;
+  return data.image;
 }
 </script>
 
