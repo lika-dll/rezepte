@@ -117,7 +117,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const einheit = div.querySelector(".einheit").value;
       const name = div.querySelector(".name").value;
 
-      zutaten.push({ menge, einheit, name });
+      if (name.trim() !== "") {
+
+      zutaten.push({
+        menge,
+        einheit,
+        name
+      });
+
+    }
     }
 
     try {
