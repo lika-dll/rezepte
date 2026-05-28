@@ -216,6 +216,7 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const ADMIN_PASSWORD = "1234";
     const isAdmin =
     localStorage.getItem("admin") === "true";
+    const rezeptId = getRezeptId();
 import { db } from './firebase.js';
 import {
     doc,
@@ -229,7 +230,6 @@ function getRezeptId() {
 
 async function init() {
 
-    const rezeptId = getRezeptId();
 
     let rezept = null;
 
