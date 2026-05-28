@@ -131,9 +131,9 @@ const zutatenText = zutaten
   .join(", ");
 
 const prompt = `
-Professional food photography of "${rezept.title}".
+Professional food photography of "${title}".
 
-Dish ingredients: ${(rezept.zutaten || []).map(z => z.name).join(", ")}.
+Dish ingredients: ${(zutaten || []).map(z => z.name).join(", ")}.
 
 Style:
 - ultra realistic
