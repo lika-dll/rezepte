@@ -133,21 +133,12 @@
           .join(", ");
 
         const prompt = `
-Professional food photography of "${title}".
+Professional food photography of ${title}.
 
-Dish ingredients: ${(zutaten || []).map(z => z.name).join(", ")}.
+Ingredients: ${(zutaten || []).map(z => z.name).join(", ")}.
 
-Style:
-- ultra realistic
-- high-end restaurant photography
-- soft natural lighting
-- shallow depth of field
-- 50mm lens look
-- clean composition
-- wooden table background
-- cinematic food styling
-
-No text, no watermark, no hands, no people.
+Ultra realistic, high quality, soft lighting, cinematic, shallow depth of field,
+restaurant style plating, wooden table, 50mm lens, no text, no watermark.
 `;
         const image = await generiereBild(prompt);
         try {
