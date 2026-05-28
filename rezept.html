@@ -250,7 +250,7 @@
                 personenAnzeige.textContent = personen;
                 zutatenListe.innerHTML = '';
 
-                rezept.zutaten.forEach((zutat, idx) => {
+               (rezept.zutaten || []).forEach((zutat, idx) => {
                     const mengeNum = Number(zutat.menge);
                     const mengeNeu = (mengeNum * personen).toFixed(2).replace(/\.00$/, '');
                     const text = `${mengeNeu} ${zutat.einheit} ${zutat.name}`;
