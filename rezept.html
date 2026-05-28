@@ -314,12 +314,23 @@ if (rezept.image) {
 
     bildEl.style.display = 'block';
 
-    const prompt = `
-        ${rezept.title},
-        food photography, realistic, delicious,
-        ingredients: ${(rezept.zutaten || []).map(z => z.name).join(", ")},
-        high detail
-    `;
+   const prompt = `
+Professional food photography of "${rezept.title}".
+
+Dish ingredients: ${(rezept.zutaten || []).map(z => z.name).join(", ")}.
+
+Style:
+- ultra realistic
+- high-end restaurant photography
+- soft natural lighting
+- shallow depth of field
+- 50mm lens look
+- clean composition
+- wooden table background
+- cinematic food styling
+
+No text, no watermark, no hands, no people.
+`;
 
     generateImage(prompt).then(url => {
         bildEl.src = url;
