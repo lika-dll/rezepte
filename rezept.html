@@ -6,167 +6,390 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="manifest" href="manifest.json">
     <title>Rezept</title>
-    <style>
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+  ```html id="49v4xj"
+<style>
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-        /* Wird über JS auf jede Badge gesetzt */
-        .badge-zutat {
-            opacity: 0;
-            animation: fadeInUp 0.4s forwards;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        /* Bild sanft reinzoomen */
-        #rezept-bild {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
 
-        #rezept-bild.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
+body {
 
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-        }
+    font-family: 'Poppins', sans-serif;
 
-        body {
-            background: linear-gradient(90deg, #fff8e1, #ffe082);
+    background:
+        linear-gradient(
+            to bottom,
+            #fffdf8,
+            #f7f7f7
+        );
 
+    color: #2d2d2d;
 
-            font-family: 'Segoe UI', sans-serif;
-        }
+    padding: 1rem;
+}
 
-        .badge-zutat,
-        .btn-teilen {
-            background-color: #ffe082;
-            color: #5d4037;
-            padding: 0.4rem 0.75rem;
-            border-radius: 1rem;
-            display: inline-block;
-            margin: 0.2rem 0.4rem 0.2rem 0;
-            font-size: 0.95rem;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-        }
+/* =========================
+   ANIMATIONEN
+========================= */
 
-        .btn-teilen:hover {
-            background-color: #f7d160;
-        }
+@keyframes fadeInUp {
 
-        #personen {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 10px;
-            border-radius: 5px;
-            background: linear-gradient(to right, #ffe082 0%, #ffe082 50%, #ccc 50%, #ccc 100%);
-            outline: none;
-            margin: 1rem 0 2rem 0;
-        }
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
 
-        #personen::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #ffe082;
-            cursor: pointer;
-            box-shadow: 0 0 6px rgba(93, 64, 55, 0.3);
-            margin-top: -7px;
-            transition: background 0.3s ease;
-        }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        #personen::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #ffe082;
-            cursor: pointer;
-            box-shadow: 0 0 6px rgba(93, 64, 55, 0.3);
-            transition: background 0.3s ease;
-        }
+.badge-zutat {
 
-        #rezept-bild {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    opacity: 0;
 
-        #qrcode-container {
-            display: none;
-            margin-top: 1rem;
-            text-align: center;
-        }
+    animation:
+        fadeInUp 0.4s forwards;
+}
 
+/* =========================
+   CONTAINER
+========================= */
 
+.main-card {
 
+    max-width: 760px;
 
-        /* Fließtext großzügiger setzen */
-        body {
-            font-family: Verdana, Geneva, sans-serif;
-            /* etwas weiter geschnitten als Segoe UI */
-            font-size: 1rem;
-            line-height: 1.8;
-            /* mehr Zeilenabstand */
-            letter-spacing: 0.02em;
-            /* minimal mehr Buchstabenabstand */
-            color: #5d4037;
-        }
+    margin: 2rem auto;
 
-        /* Überschriften mit Serif, aber luftiger */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Palatino Linotype", Georgia, serif;
-            line-height: 1.3;
-            letter-spacing: 0.03em;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+    background:
+        rgba(255,255,255,0.88);
 
-        /* Buttons & Badges etwas größer und mit mehr Padding */
-        .badge-zutat,
-        .btn-teilen {
-            font-size: 1rem;
-            padding: 0.6rem 1rem;
-            letter-spacing: 0.02em;
-        }
+    backdrop-filter: blur(12px);
 
-        /* Optional: Für Mobile nochmal anpassen */
-        @media (max-width: 600px) {
-            body {
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
+    border-radius: 34px;
 
-            .badge-zutat,
-            .btn-teilen {
-                font-size: 0.9rem;
-                padding: 0.5rem 0.75rem;
-            }
-        }
-    </style>
+    padding: 2rem;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.08);
+
+    border:
+        1px solid rgba(255,255,255,0.5);
+}
+
+/* =========================
+   TITEL
+========================= */
+
+#rezept-title {
+
+    font-size: clamp(2rem, 6vw, 3rem);
+
+    font-weight: 700;
+
+    line-height: 1.1;
+
+    margin-bottom: 1.5rem;
+
+    color: #323232;
+
+    letter-spacing: -0.03em;
+}
+
+h3,
+h4 {
+
+    margin-top: 2rem;
+
+    margin-bottom: 1rem;
+
+    font-size: 1.2rem;
+
+    color: #555;
+
+    font-weight: 600;
+}
+
+/* =========================
+   BILD
+========================= */
+
+#rezept-bild {
+
+    width: 100%;
+
+    max-height: 430px;
+
+    object-fit: cover;
+
+    border-radius: 28px;
+
+    margin-bottom: 1.8rem;
+
+    opacity: 0;
+
+    transform: scale(0.96);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.12);
+}
+
+#rezept-bild.visible {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+/* =========================
+   ZUTATEN BADGES
+========================= */
+
+.badge-zutat {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    background:
+        #f8ede3;
+
+    color: #6b4f3a;
+
+    padding:
+        0.7rem 1rem;
+
+    border-radius: 18px;
+
+    margin:
+        0.35rem;
+
+    font-size: 0.95rem;
+
+    font-weight: 500;
+
+    border:
+        1px solid rgba(212,163,115,0.15);
+
+    transition: 0.25s ease;
+}
+
+.badge-zutat:hover {
+
+    transform: translateY(-2px);
+
+    background: #f5e3d3;
+}
+
+/* =========================
+   SLIDER
+========================= */
+
+#personen {
+
+    -webkit-appearance: none;
+
+    width: 100%;
+
+    height: 10px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            to right,
+            #d4a373 0%,
+            #d4a373 50%,
+            #e6e6e6 50%,
+            #e6e6e6 100%
+        );
+
+    outline: none;
+
+    margin:
+        1rem 0 2rem 0;
+}
+
+#personen::-webkit-slider-thumb {
+
+    -webkit-appearance: none;
+
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+
+    background:
+        white;
+
+    border:
+        4px solid #d4a373;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.12);
+}
+
+#personen::-moz-range-thumb {
+
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border:
+        4px solid #d4a373;
+
+    cursor: pointer;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+#zubereitung-text {
+
+    line-height: 1.9;
+
+    color: #5f5f5f;
+
+    font-size: 1rem;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-teilen,
+.btn-secondary {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            to right,
+            #d4a373,
+            #e6b98f
+        );
+
+    color: white !important;
+
+    padding:
+        0.9rem 1.2rem;
+
+    border-radius: 18px;
+
+    font-size: 0.95rem;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+
+    margin:
+        0.3rem;
+
+    box-shadow:
+        0 8px 22px rgba(212,163,115,0.22);
+}
+
+.btn-teilen:hover,
+.btn-secondary:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 26px rgba(212,163,115,0.3);
+}
+
+/* =========================
+   QR CODE
+========================= */
+
+#qrcode-container {
+
+    display: none;
+
+    margin-top: 1.5rem;
+
+    text-align: center;
+}
+
+#qrcode {
+
+    border-radius: 20px;
+
+    background: white;
+
+    padding: 0.8rem;
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .main-card {
+
+        padding: 1.4rem;
+
+        border-radius: 28px;
+    }
+
+    #rezept-title {
+
+        font-size: 2rem;
+    }
+
+    #rezept-bild {
+
+        max-height: 280px;
+    }
+
+    .btn-teilen,
+    .btn-secondary {
+
+        width: 100%;
+
+        margin:
+            0.4rem 0;
+    }
+}
+
+</style>
+```
+
 </head>
 
 <body>
