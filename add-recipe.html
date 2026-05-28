@@ -170,27 +170,11 @@ No text, no watermark, no hands, no people.
 
     });
     async function generiereBild(prompt) {
+  const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt);
 
-      const response = await fetch("https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt));
-      const res = await fetch("https://api.replicate.com/v1/predictions", {
-        method: "POST",
-        headers: {
-          "Authorization": "Token DEIN_API_KEY",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          version: "MODEL_ID_HIER",
-          input: {
-            prompt: prompt
-          }
-        })
-      });
-
-      const data = await res.json();
-
-      return data.output[0];
-
-    }
+  // optional: direkt zurückgeben (kein API call nötig)
+  return url;
+}
   </script>
 
 </body>
