@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+</head>
+<body style="font-family:sans-serif;padding:2rem;">
+
+<h1>Admin Login</h1>
+
+<input type="password" id="pw" placeholder="Passwort">
+
+<button id="loginBtn">
+  Login
+</button>
+
+<script>
+
+const ADMIN_PASSWORD = "1234";
+
+document
+.getElementById("loginBtn")
+.addEventListener("click", () => {
+
+  const pw =
+    document.getElementById("pw").value;
+
+  if (pw === ADMIN_PASSWORD) {
+
+    localStorage.setItem("admin", "true");
+
+    alert("Eingeloggt!");
+
+    window.location.href = "index.html";
+
+  } else {
+
+    alert("Falsches Passwort");
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
