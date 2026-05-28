@@ -37,9 +37,7 @@ body {
     padding: 1rem;
 }
 
-/* =========================
-   ANIMATIONEN
-========================= */
+
 
 @keyframes fadeInUp {
 
@@ -62,9 +60,7 @@ body {
         fadeInUp 0.4s forwards;
 }
 
-/* =========================
-   CONTAINER
-========================= */
+
 
 .main-card {
 
@@ -88,9 +84,7 @@ body {
         1px solid rgba(255,255,255,0.5);
 }
 
-/* =========================
-   TITEL
-========================= */
+
 
 #rezept-title {
 
@@ -121,9 +115,7 @@ h4 {
     font-weight: 600;
 }
 
-/* =========================
-   BILD
-========================= */
+
 
 #rezept-bild {
 
@@ -156,9 +148,7 @@ h4 {
     transform: scale(1);
 }
 
-/* =========================
-   ZUTATEN BADGES
-========================= */
+
 
 .badge-zutat {
 
@@ -196,9 +186,7 @@ h4 {
     background: #f5e3d3;
 }
 
-/* =========================
-   SLIDER
-========================= */
+
 
 #personen {
 
@@ -261,9 +249,7 @@ h4 {
     cursor: pointer;
 }
 
-/* =========================
-   TEXT
-========================= */
+
 
 #zubereitung-text {
 
@@ -274,9 +260,7 @@ h4 {
     font-size: 1rem;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+
 
 .btn-teilen,
 .btn-secondary {
@@ -328,9 +312,7 @@ h4 {
         0 12px 26px rgba(212,163,115,0.3);
 }
 
-/* =========================
-   QR CODE
-========================= */
+
 
 #qrcode-container {
 
@@ -353,9 +335,7 @@ h4 {
         0 8px 24px rgba(0,0,0,0.08);
 }
 
-/* =========================
-   MOBILE
-========================= */
+
 
 @media (max-width: 768px) {
 
@@ -387,7 +367,7 @@ h4 {
 }
 
 </style>
-```
+
 
 </head>
 
@@ -456,7 +436,6 @@ async function init() {
 
     let rezept = null;
 
-    // Firebase versuchen
     try {
         const docRef = doc(db, "rezepte", rezeptId);
         const docSnap = await getDoc(docRef);
@@ -491,26 +470,17 @@ async function init() {
         return;
     }
 
-    // Titel
     titelEl.textContent = rezept.title || "Ohne Titel";
 
-    // Zubereitung
     zubereitungText.textContent =
         rezept.zubereitung ||
         rezept.preparation ||
         "Keine Zubereitung vorhanden.";
 
-    // =========================
-    // BILD LOGIK (FIXED)
-    // =========================
     if (rezept.image) {
-
-        // gespeichertes Bild
         bildEl.src = rezept.image;
-
     } else {
 
-        // KI Bild via Pollinations
         const prompt = `
 Professional food photography of "${rezept.title}".
 
@@ -542,9 +512,6 @@ No text, no watermark, no people, no hands.
         bildEl.classList.add('visible');
     }, 50);
 
-    // =========================
-    // ZUTATEN + SLIDER
-    // =========================
     function aktualisiereZutaten() {
 
         const personen = parseInt(personenInput.value, 10) || 1;
@@ -587,10 +554,6 @@ No text, no watermark, no people, no hands.
     personenInput.addEventListener('input', aktualisiereZutaten);
     aktualisiereZutaten();
 }
-
-// =========================
-// TEILEN FUNKTIONEN
-// =========================
 
 function teilePerWhatsApp() {
     const url = encodeURIComponent(window.location.href);
