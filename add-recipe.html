@@ -131,22 +131,22 @@ const zutatenText = zutaten
   .join(", ");
 
 const prompt = `
-Foto von ${title}.
+Professional food photography of "${rezept.title}".
 
-Beschreibung:
-${description}
+Dish ingredients: ${(rezept.zutaten || []).map(z => z.name).join(", ")}.
 
-Zutaten:
-${zutatenText}
+Style:
+- ultra realistic
+- high-end restaurant photography
+- soft natural lighting
+- shallow depth of field
+- 50mm lens look
+- clean composition
+- wooden table background
+- cinematic food styling
 
-Zubereitung:
-${preparation}
-
-Das Essen soll appetitlich,
-realistisch,
-und wie ein modernes Foodblog-Foto aussehen.
+No text, no watermark, no hands, no people.
 `;
-
     const image = await generiereBild(prompt);
     try {
       await addDoc(collection(db, "rezepte"), {
