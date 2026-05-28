@@ -1,45 +1,26 @@
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Dein Secret in Vercel
+});
+
 export default async function handler(req, res) {
-  console.log("FUNCTION STARTED");
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const { prompt } = req.body;
 
   try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method not allowed" });
-    }
-
-    // 🔥 WICHTIG: robustes parsing für Vercel
-    let body = req.body;
-
-    if (!body) {
-      try {
-        body = await new Promise((resolve) => {
-          let data = "";
-          req.on("data", chunk => data += chunk);
-          req.on("end", () => resolve(JSON.parse(data)));
-        });
-      } catch (e) {
-        return res.status(400).json({ error: "Invalid JSON" });
-      }
-    }
-
-    const { prompt } = body;
-
-    console.log("PROMPT:", prompt);
-
-    if (!prompt) {
-      return res.status(400).json({ error: "No prompt" });
-    }
-
-    return res.status(200).json({
-      ok: true,
+    const result = await openai.images.generate({
+      model: "gpt-image-1",
       prompt,
-      debug: "backend works"
+      size: "1024x1024",
     });
 
-  } catch (err) {
-    console.error("CRASH:", err);
-
-    return res.status(500).json({
-      error: err.message || "unknown error"
-    });
+    res.status(200).json({ image: result.data[0].url });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to generate image" });
   }
 }
