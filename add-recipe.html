@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +21,8 @@
       border-radius: 12px;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 0.8rem;
       margin-bottom: 1rem;
@@ -43,94 +45,94 @@
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <h1>Neues Rezept hinzufügen 🍰</h1>
+    <h1>Neues Rezept hinzufügen 🍰</h1>
 
-  <input type="text" id="title" placeholder="Rezeptname">
+    <input type="text" id="title" placeholder="Rezeptname">
 
-  <textarea id="description" placeholder="Beschreibung"></textarea>
+    <textarea id="description" placeholder="Beschreibung"></textarea>
 
-  <textarea id="preparation" placeholder="Zubereitung"></textarea>
+    <textarea id="preparation" placeholder="Zubereitung"></textarea>
 
-  
-  <h3>Zutaten</h3>
 
-<div id="ingredients-container"></div>
+    <h3>Zutaten</h3>
 
-<button type="button" id="addIngredient">
-  + Zutat hinzufügen
-</button>
+    <div id="ingredients-container"></div>
 
-<br><br>
+    <button type="button" id="addIngredient">
+      + Zutat hinzufügen
+    </button>
 
-  <button id="saveBtn">Rezept speichern</button>
+    <br><br>
 
-</div>
+    <button id="saveBtn">Rezept speichern</button>
 
-<script type="module">
-import { db } from './firebase.js';
-import {
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  </div>
 
-document.addEventListener("DOMContentLoaded", () => {
+  <script type="module">
+    import { db } from './firebase.js';
+    import {
+      collection,
+      addDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  const saveBtn = document.getElementById("saveBtn");
-  const addIngredientBtn = document.getElementById("addIngredient");
-  const ingredientsContainer = document.getElementById("ingredients-container");
+    document.addEventListener("DOMContentLoaded", () => {
 
-  function addIngredientField() {
+      const saveBtn = document.getElementById("saveBtn");
+      const addIngredientBtn = document.getElementById("addIngredient");
+      const ingredientsContainer = document.getElementById("ingredients-container");
 
-    const div = document.createElement("div");
+      function addIngredientField() {
 
-    div.style.marginBottom = "1rem";
+        const div = document.createElement("div");
 
-    div.innerHTML = `
+        div.style.marginBottom = "1rem";
+
+        div.innerHTML = `
       <input type="number" placeholder="Menge" class="menge">
       <input type="text" placeholder="Einheit" class="einheit">
       <input type="text" placeholder="Zutat" class="name">
     `;
 
-    ingredientsContainer.appendChild(div);
-  }
+        ingredientsContainer.appendChild(div);
+      }
 
-  addIngredientBtn.addEventListener("click", addIngredientField);
+      addIngredientBtn.addEventListener("click", addIngredientField);
 
-  addIngredientField(); // erstes Feld automatisch
+      addIngredientField(); // erstes Feld automatisch
 
-  saveBtn.addEventListener("click", async () => {
+      saveBtn.addEventListener("click", async () => {
 
-    const title = document.getElementById("title").value;
-    const description = document.getElementById("description").value;
-    const preparation = document.getElementById("preparation").value;
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const preparation = document.getElementById("preparation").value;
 
-    const zutaten = [];
+        const zutaten = [];
 
-    const ingredientDivs = ingredientsContainer.children;
+        const ingredientDivs = ingredientsContainer.children;
 
-    for (const div of ingredientDivs) {
+        for (const div of ingredientDivs) {
 
-      const menge = div.querySelector(".menge").value;
-      const einheit = div.querySelector(".einheit").value;
-      const name = div.querySelector(".name").value;
+          const menge = div.querySelector(".menge").value;
+          const einheit = div.querySelector(".einheit").value;
+          const name = div.querySelector(".name").value;
 
-      if (name.trim() !== "") {
+          if (name.trim() !== "") {
 
-      zutaten.push({
-        menge,
-        einheit,
-        name
-      });
+            zutaten.push({
+              menge,
+              einheit,
+              name
+            });
 
-    }
-    }
-const zutatenText = zutaten
-  .map(z => `${z.menge} ${z.einheit} ${z.name}`)
-  .join(", ");
+          }
+        }
+        const zutatenText = zutaten
+          .map(z => `${z.menge} ${z.einheit} ${z.name}`)
+          .join(", ");
 
-const prompt = `
+        const prompt = `
 Professional food photography of "${title}".
 
 Dish ingredients: ${(zutaten || []).map(z => z.name).join(", ")}.
@@ -147,49 +149,50 @@ Style:
 
 No text, no watermark, no hands, no people.
 `;
-    const image = await generiereBild(prompt);
-    try {
-      await addDoc(collection(db, "rezepte"), {
-        title,
-        description,
-        zubereitung: preparation,
-        image,
-        zutaten
+        const image = await generiereBild(prompt);
+        try {
+          await addDoc(collection(db, "rezepte"), {
+            title,
+            description,
+            zubereitung: preparation,
+            image,
+            zutaten
+          });
+
+          alert("Rezept gespeichert 🎉");
+
+        } catch (e) {
+          console.error(e);
+          alert("Fehler beim Speichern");
+        }
+
       });
 
-      alert("Rezept gespeichert 🎉");
-
-    } catch (e) {
-      console.error(e);
-      alert("Fehler beim Speichern");
-    }
-
-  });
-
-});
-async function generiereBild(prompt) {
-  try {
-    const res = await fetch("/api/generate-image", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt })
     });
+    async function generiereBild(prompt) {
 
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error("API Fehler:", errorText);
-      return ""; // WICHTIG: nie undefined
+      const response = await fetch("https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt));
+      const res = await fetch("https://api.replicate.com/v1/predictions", {
+        method: "POST",
+        headers: {
+          "Authorization": "Token DEIN_API_KEY",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          version: "MODEL_ID_HIER",
+          input: {
+            prompt: prompt
+          }
+        })
+      });
+
+      const data = await res.json();
+
+      return data.output[0];
+
     }
-
-    const data = await res.json();
-    return data.image || "";
-
-  } catch (err) {
-    console.error("Fetch Fehler:", err);
-    return "";
-  }
-}
-</script>
+  </script>
 
 </body>
+
 </html>
