@@ -1,11 +1,12 @@
 {
   "name": "Meine Rezepte",
   "short_name": "Rezepte",
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fff8e1",
   "theme_color": "#ffe082",
   "orientation": "portrait",
+  "scope": "./",
   "icons": [
     {
       "src": "icon-192.png",
