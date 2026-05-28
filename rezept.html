@@ -201,7 +201,9 @@
 
     </div>
 <script type="module">
-
+const ADMIN_PASSWORD = "1234";
+    const isAdmin =
+    localStorage.getItem("admin") === "true";
 import { db } from './firebase.js';
 import {
     doc,
