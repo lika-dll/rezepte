@@ -53,7 +53,7 @@
 
   <textarea id="preparation" placeholder="Zubereitung"></textarea>
 
-  <input type="text" id="image" placeholder="Bild-URL">
+  
   <h3>Zutaten</h3>
 
 <div id="ingredients-container"></div>
@@ -127,7 +127,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
     }
+const zutatenText = zutaten
+  .map(z => `${z.menge} ${z.einheit} ${z.name}`)
+  .join(", ");
 
+const prompt = `
+Professionelles Foodfoto von ${title}.
+
+Beschreibung:
+${description}
+
+Zutaten:
+${zutatenText}
+
+Zubereitung:
+${preparation}
+
+Das Essen soll appetitlich,
+realistisch,
+hochwertig,
+warm beleuchtet
+und wie ein modernes Foodblog-Foto aussehen.
+`;
     try {
       await addDoc(collection(db, "rezepte"), {
         title,
