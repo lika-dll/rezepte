@@ -168,19 +168,26 @@ No text, no watermark, no hands, no people.
 
 });
 async function generiereBild(prompt) {
-  const res = await fetch("/api/generate-image", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt })
-  });
+  try {
+    const res = await fetch("/api/generate-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
 
-  if (!res.ok) {
-    const text = await res.text(); // Debugging falls JSON fehlt
-    throw new Error("Fehler bei Bildgenerierung: " + text);
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("API Fehler:", errorText);
+      return ""; // WICHTIG: nie undefined
+    }
+
+    const data = await res.json();
+    return data.image || "";
+
+  } catch (err) {
+    console.error("Fetch Fehler:", err);
+    return "";
   }
-
-  const data = await res.json();
-  return data.image;
 }
 </script>
 
