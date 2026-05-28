@@ -7,139 +7,226 @@
 <link rel="manifest" href="manifest.json">
   <title>Admin Login</title>
 
-  <style>
+```html id="8v7m2j"
+<style>
 
-    body {
-      margin: 0;
-      height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      background: linear-gradient(135deg, #fff8e1, #ffe082);
+body {
 
-      font-family: 'Segoe UI', sans-serif;
-    }
+  min-height: 100vh;
 
-    .login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-      background: white;
+  padding: 1.5rem;
 
-      padding: 3rem;
+  font-family: 'Poppins', sans-serif;
 
-      border-radius: 20px;
+  background:
+    linear-gradient(
+      to bottom,
+      #fffdf8,
+      #f5f5f5
+    );
 
-      width: 320px;
+  color: #2d2d2d;
+}
 
-      box-shadow:
-        0 10px 30px rgba(0,0,0,0.1);
+.login-box {
 
-      text-align: center;
+  width: 100%;
+  max-width: 380px;
 
-      animation: fadeIn 0.5s ease;
-    }
+  background:
+    rgba(255,255,255,0.88);
 
-    @keyframes fadeIn {
+  backdrop-filter: blur(14px);
 
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+  border-radius: 32px;
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  padding: 2.5rem;
 
-    h1 {
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.08);
 
-      color: #5d4037;
+  border:
+    1px solid rgba(255,255,255,0.4);
 
-      margin-bottom: 2rem;
-    }
+  text-align: center;
 
-    input {
+  animation: fadeIn 0.45s ease;
+}
 
-      width: 100%;
+@keyframes fadeIn {
 
-      padding: 1rem;
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-      border-radius: 10px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-      border: 2px solid #ffe082;
+.icon {
 
-      outline: none;
+  width: 90px;
+  height: 90px;
 
-      font-size: 1rem;
+  margin:
+    0 auto 1.5rem auto;
 
-      margin-bottom: 1.5rem;
+  border-radius: 24px;
 
-      box-sizing: border-box;
-    }
+  background:
+    linear-gradient(
+      to bottom right,
+      #f8ede3,
+      #faedcd
+    );
 
-    input:focus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-      border-color: #ffca28;
-    }
+  font-size: 2.5rem;
 
-    button {
+  box-shadow:
+    0 8px 20px rgba(212,163,115,0.15);
+}
 
-      width: 100%;
+h1 {
 
-      padding: 1rem;
+  font-size: 2rem;
 
-      border: none;
+  font-weight: 700;
 
-      border-radius: 10px;
+  margin-bottom: 2rem;
 
-      background: #ffe082;
+  color: #3b3b3b;
+}
 
-      color: #5d4037;
+input {
 
-      font-size: 1rem;
+  width: 100%;
 
-      font-weight: bold;
+  padding: 1rem 1.2rem;
 
-      cursor: pointer;
+  border-radius: 18px;
 
-      transition: 0.2s;
-    }
+  border: 1px solid #ececec;
 
-    button:hover {
+  background: #fafafa;
 
-      background: #ffd54f;
+  font-size: 1rem;
 
-      transform: translateY(-2px);
-    }
+  font-family: inherit;
 
-    .icon {
+  margin-bottom: 1.3rem;
 
-      font-size: 3rem;
+  transition: all 0.25s ease;
+}
 
-      margin-bottom: 1rem;
-    }
+input:focus {
 
-    .back-link {
+  outline: none;
 
-      display: inline-block;
+  background: white;
 
-      margin-top: 1.5rem;
+  border-color: #d4a373;
 
-      text-decoration: none;
+  box-shadow:
+    0 0 0 4px rgba(212,163,115,0.12);
+}
 
-      color: #8d6e63;
+button {
 
-      font-size: 0.9rem;
-    }
+  width: 100%;
 
-    .back-link:hover {
+  border: none;
 
-      text-decoration: underline;
-    }
+  padding: 1rem;
 
-  </style>
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      to right,
+      #d4a373,
+      #e6b98f
+    );
+
+  color: white;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  box-shadow:
+    0 8px 24px rgba(212,163,115,0.25);
+}
+
+button:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 28px rgba(212,163,115,0.35);
+}
+
+.back-link {
+
+  display: inline-block;
+
+  margin-top: 1.5rem;
+
+  text-decoration: none;
+
+  color: #8b8b8b;
+
+  font-size: 0.95rem;
+
+  transition: 0.2s ease;
+}
+
+.back-link:hover {
+
+  color: #d4a373;
+}
+
+@media (max-width: 500px) {
+
+  .login-box {
+
+    padding: 2rem;
+    border-radius: 26px;
+  }
+
+  h1 {
+
+    font-size: 1.7rem;
+  }
+}
+
+</style>
+
+
 
 </head>
 
