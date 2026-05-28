@@ -4,7 +4,7 @@
   "start_url": "/rezepte/index.html",
   "display": "standalone",
   "background_color": "#f7f7f7",
-  "theme_color": "#ffe082",
+  "theme_color": "#fffdf8",
   "orientation": "portrait",
   "scope": "/rezepte/",
   "icons": [
