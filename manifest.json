@@ -3,8 +3,9 @@
   "short_name": "Rezepte",
   "start_url": "/rezepte/index.html",
   "display": "standalone",
-  "background_color": "#f7f7f7",
-  "theme_color": "#fffdf8",
+  "background_color": "#d4a373",
+            
+  "theme_color": "#e6b98f",
   "orientation": "portrait",
   "scope": "/rezepte/",
   "icons": [
