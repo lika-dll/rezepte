@@ -14,140 +14,310 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Rezepte">
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-        }
+```html id="4kxy8u"
+<style>
 
-        body {
-            background: linear-gradient(90deg, #fff8e1, #ffe082);
-        }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
 
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+body {
 
-        .card-img-top {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    font-family: 'Poppins', sans-serif;
 
-        .card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 6px 6px 12px #d1bfa1,
-                -6px -6px 12px #fff9e6;
-            width: 100%;
-        }
+    background:
+        linear-gradient(
+            to bottom,
+            #fffdf8,
+            #f7f7f7
+        );
 
+    color: #2d2d2d;
+}
 
+.container {
 
+    max-width: 1400px;
 
-        .btn {
-            background-color: #ffe082;
-            color: #5d4037;
-            padding: 0.4rem 0.75rem;
-            border-radius: 1rem;
-            display: inline-block;
-            margin: 0.2rem;
-            font-size: 0.95rem;
-            border-color: #ffe082a9;
-        }
+    margin: auto;
 
-        .btn:hover {
-            background-color: #f7d160;
-            color: #5d4037;
-            padding: 0.4rem 0.75rem;
-            border-radius: 1rem;
-            display: inline-block;
-            margin: 0.2rem;
-            font-size: 0.95rem;
-            border-color: #ffe082a9;
-        }
+    padding: 1.5rem;
+}
 
+.custom-heading {
 
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
 
-        .custom-heading {
-            font-family: 'Monotype Corsiva';
-            font-weight: bolder;
-            font-size: clamp(2rem, 6vw, 3.2rem);
-            text-align: center;
-            margin: 1rem auto;
-            padding: 1rem 1.5rem 0.5rem 1.5rem;
-            width: 100%;
-            max-width: 100%;
-            background: linear-gradient(115deg, #ffe082, #fff8e1);
-            color: #5d4037;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    font-weight: 700;
 
+    text-align: center;
 
+    margin-bottom: 2rem;
 
+    color: #3b3b3b;
 
+    letter-spacing: -0.03em;
+}
 
+.mb-4 {
 
+    background:
+        rgba(255,255,255,0.85);
 
+    backdrop-filter: blur(10px);
 
+    padding: 1.4rem;
 
+    border-radius: 28px;
 
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.06);
 
-        /* Fließtext großzügiger setzen */
-        body {
-            font-family: Verdana, Geneva, sans-serif;
-            /* etwas weiter geschnitten als Segoe UI */
-            font-size: 1rem;
-            line-height: 1.8;
-            /* mehr Zeilenabstand */
-            letter-spacing: 0.02em;
-            /* minimal mehr Buchstabenabstand */
-            color: #5d4037;
-        }
+    margin-bottom: 2rem !important;
+}
 
-        /* Überschriften mit Serif, aber luftiger */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Palatino Linotype", Georgia, serif;
-            line-height: 1.3;
-            letter-spacing: 0.03em;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+.form-control {
 
-        /* Buttons & Badges etwas größer und mit mehr Padding */
-        .badge-zutat,
-        .btn-teilen {
-            font-size: 1rem;
-            padding: 0.6rem 1rem;
-            letter-spacing: 0.02em;
-        }
+    border: none !important;
 
-        /* Optional: Für Mobile nochmal anpassen */
-        @media (max-width: 600px) {
-            body {
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
+    border-radius: 18px !important;
 
-            .badge-zutat,
-            .btn-teilen {
-                font-size: 0.9rem;
-                padding: 0.5rem 0.75rem;
-            }
-        }
-    </style>
+    padding: 1rem 1.2rem !important;
+
+    background: #f8f8f8 !important;
+
+    font-size: 1rem;
+
+    box-shadow: none !important;
+
+    transition: 0.25s ease;
+}
+
+.form-control:focus {
+
+    background: white !important;
+
+    box-shadow:
+        0 0 0 4px rgba(212,163,115,0.12) !important;
+}
+
+a {
+
+    text-decoration: none;
+}
+
+a[href="add-recipe.html"] {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            to right,
+            #d4a373,
+            #e6b98f
+        );
+
+    color: white !important;
+
+    padding: 1rem 1.4rem;
+
+    border-radius: 18px;
+
+    font-weight: 600;
+
+    margin-top: 1rem;
+
+    transition: 0.25s ease;
+
+    box-shadow:
+        0 8px 24px rgba(212,163,115,0.25);
+}
+
+a[href="add-recipe.html"]:hover {
+
+    transform: translateY(-3px);
+}
+
+a[href="admin.html"] {
+
+    display: inline-block;
+
+    margin-left: 1rem;
+
+    color: #8b8b8b;
+
+    font-weight: 500;
+}
+
+.card {
+
+    overflow: hidden;
+
+    border: none !important;
+
+    border-radius: 28px !important;
+
+    background:
+        rgba(255,255,255,0.92);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.08);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    width: 100%;
+}
+
+.card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.12);
+}
+
+.card-img-top {
+
+    width: 100%;
+
+    height: 240px;
+
+    object-fit: cover;
+
+    transition: 0.4s ease;
+}
+
+.card:hover .card-img-top {
+
+    transform: scale(1.03);
+}
+
+.card-body {
+
+    padding: 1.4rem;
+}
+
+.card-title {
+
+    font-size: 1.25rem;
+
+    font-weight: 700;
+
+    margin-bottom: 0.7rem;
+
+    color: #3a3a3a;
+}
+
+.card-text {
+
+    color: #777;
+
+    line-height: 1.7;
+
+    margin-bottom: 1.3rem;
+}
+
+.btn {
+
+    background:
+        linear-gradient(
+            to right,
+            #d4a373,
+            #e6b98f
+        ) !important;
+
+    border: none !important;
+
+    color: white !important;
+
+    border-radius: 16px !important;
+
+    padding:
+        0.8rem 1.2rem !important;
+
+    font-weight: 600;
+
+    transition: 0.25s ease;
+
+    box-shadow:
+        0 6px 18px rgba(212,163,115,0.2);
+}
+
+.btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(212,163,115,0.3);
+}
+
+.row {
+
+    row-gap: 1rem;
+}
+
+.recipe-card {
+
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .container {
+
+        padding: 1rem;
+    }
+
+    .custom-heading {
+
+        font-size: 2.2rem;
+    }
+
+    .card-img-top {
+
+        height: 210px;
+    }
+
+    a[href="admin.html"] {
+
+        display: block;
+
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+}
+
+</style>
+
 </head>
 
 <body>
