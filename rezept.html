@@ -291,17 +291,40 @@ async function init() {
         "Keine Zubereitung vorhanden.";
 
     // Bild
-    if (rezept.image) {
+// Bild
+if (rezept.image) {
 
-        bildEl.src = rezept.image;
+    // 🟢 FALL 1: echtes gespeichertes Bild (alte Rezepte)
+    bildEl.src = rezept.image;
 
-        bildEl.style.display = 'block';
+    bildEl.style.display = 'block';
+
+    setTimeout(() => {
+        bildEl.classList.add('visible');
+    }, 50);
+
+} else {
+
+    // 🔥 FALL 2: KI Bild generieren (neue Rezepte ohne image)
+
+    bildEl.style.display = 'block';
+
+    const prompt = `
+        ${rezept.title},
+        food photography, realistic, delicious,
+        ingredients: ${(rezept.zutaten || []).map(z => z.name).join(", ")},
+        high detail
+    `;
+
+    generateImage(prompt).then(url => {
+        bildEl.src = url;
 
         setTimeout(() => {
-
             bildEl.classList.add('visible');
-
         }, 50);
+    });
+
+}
 
     }
 
