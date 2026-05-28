@@ -544,13 +544,13 @@ No text, no watermark, no people, no hands.
         const max = parseInt(personenInput.max, 10);
         const percent = ((personen - 1) / (max - 1)) * 100;
 
-        personenInput.style.background =
-            `linear-gradient(to right,
-            #ffe082 0%,
-            #ffe082 ${percent}%,
-            #ccc ${percent}%,
-            #ccc 100%)`;
-    }
+personenInput.style.background =
+    `linear-gradient(to right,
+    #3a2a20 0%,
+    #3a2a20 ${percent}%,
+    #e5e5e5 ${percent}%,
+    #e5e5e5 100%)`;
+
 
     personenInput.addEventListener('input', aktualisiereZutaten);
     aktualisiereZutaten();
