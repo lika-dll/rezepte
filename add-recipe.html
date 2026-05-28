@@ -149,6 +149,8 @@ hochwertig,
 warm beleuchtet
 und wie ein modernes Foodblog-Foto aussehen.
 `;
+
+    const image = await generiereBild(prompt);
     try {
       await addDoc(collection(db, "rezepte"), {
         title,
@@ -168,7 +170,11 @@ und wie ein modernes Foodblog-Foto aussehen.
   });
 
 });
+async function generiereBild(prompt) {
 
+
+  return "https://images.unsplash.com/photo-1546069901-ba9599a7e63c";
+}
 </script>
 
 </body>
