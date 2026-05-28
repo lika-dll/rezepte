@@ -310,11 +310,11 @@ async function init() {
 
     // Bild
 // Bild
+// Bild
 if (rezept.image) {
 
-    // 🟢 FALL 1: echtes gespeichertes Bild (alte Rezepte)
+    // 🟢 gespeichertes Bild (Firebase / alte Rezepte)
     bildEl.src = rezept.image;
-
     bildEl.style.display = 'block';
 
     setTimeout(() => {
@@ -323,27 +323,39 @@ if (rezept.image) {
 
 } else {
 
-    // 🔥 FALL 2: KI Bild generieren (neue Rezepte ohne image)
+    // 🔥 KI Bild (nur wenn KEIN Bild existiert)
 
     bildEl.style.display = 'block';
 
-   const prompt = `
+    const prompt = `
 Professional food photography of "${rezept.title}".
 
-Dish ingredients: ${(rezept.zutaten || []).map(z => z.name).join(", ")}.
+Ingredients: ${(rezept.zutaten || [])
+        .map(z => z.name)
+        .filter(Boolean)
+        .join(", ")}
 
 Style:
-- ultra realistic
-- high-end restaurant photography
+- ultra realistic food photography
 - soft natural lighting
 - shallow depth of field
-- 50mm lens look
-- clean composition
-- wooden table background
-- cinematic food styling
+- cinematic
+- high detail
+- modern food blog style
 
-No text, no watermark, no hands, no people.
+No text, no watermark, no people, no hands.
 `;
+
+    const url =
+        "https://image.pollinations.ai/prompt/" +
+        encodeURIComponent(prompt);
+
+    bildEl.src = url;
+
+    setTimeout(() => {
+        bildEl.classList.add('visible');
+    }, 50);
+}
 
     generateImage(prompt).then(url => {
         bildEl.src = url;
